@@ -9,7 +9,6 @@ This is taken from the pypy benchmarks and adapted for the pyxen project.
 """
 
 # Python imports
-import optparse
 import time
 
 
@@ -110,7 +109,7 @@ def quux(a):
 
 
 def qux():
-    pass
+    return time.time()
 
 
 def test_calls():
@@ -180,11 +179,10 @@ def test_calls():
     return t1 - t0
 
 def main(argv):
-    for i in range(40):
-        print "Test " + str(i) + ":" + str(test_calls())
+    increment = 0;
+    for i in xrange(10):
+        print str(i) + ": " + str(test_calls())
+    return 0
 
 def target(driver,args):
     return main,None
-
-if __name__ == "__main__":
-    main(None);
