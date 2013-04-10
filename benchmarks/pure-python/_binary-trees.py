@@ -31,7 +31,7 @@ def make_check(itde, make=make_tree, check=check_tree):
     return check(make(i, d))
 
 
-def get_argchunks(i, d, chunksize=5000):
+def get_argchunks(i, d, chunksize=4):
 
     assert chunksize % 2 == 0
     chunk = []
@@ -42,7 +42,6 @@ def get_argchunks(i, d, chunksize=5000):
             chunk = []
     if len(chunk) > 0:
         yield chunk
-
 
 def main(n, min_depth=4):
 
@@ -64,6 +63,7 @@ def main(n, min_depth=4):
 
     print 'long lived tree of depth %d\t check: %d' % (
           max_depth, check_tree(long_lived_tree))
+
 
 
 if __name__ == '__main__':
