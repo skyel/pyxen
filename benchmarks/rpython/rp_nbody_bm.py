@@ -19,7 +19,6 @@ __contact__ = "collinwinter@google.com (Collin Winter)"
 # Python imports
 import itertools
 import sys
-import time
 import math
 
 
@@ -122,25 +121,21 @@ def test_nbody(iterations):
     report_energy()
 
     times = []
-    for _ in xrange(iterations):
-        t0 = time.time()
-        report_energy()
+    for it in xrange(iterations):
+        print str(it) + ":"
+        print report_energy()
         advance(0.01, 20000)
-        report_energy()
-        t1 = time.time()
-        times.append(t1 - t0)
-    return times
+        print report_energy()
 
 
 
+# Pass as argument the number of wanted iterations
 def main(argv):
     offset_momentum(BODIES['sun'])  # Set up global state
-    print test_nbody(1);
+    test_nbody(int(argv[1]));
     return 0
 
 
 def target(driver,args):
     return main,None
 
-if __name__ == '__main__':
-    main(None)
