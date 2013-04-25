@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from math import sin, cos, sqrt
-import util
-import optparse
 import time
 
 class Point(object):
@@ -20,9 +18,9 @@ class Point(object):
         y = self.y
         z = self.z
         norm = sqrt(x * x + y * y + z * z)
-        self.x /= norm
-        self.y /= norm
-        self.z /= norm
+        self.x = self.x / norm
+        self.y = self.y / norm
+        self.z = self.z / norm
 
     def maximize(self, other):
         self.x = self.x if self.x > other.x else other.x
@@ -57,12 +55,16 @@ def main(arg):
         tk = time.time()
         times.append(tk - t0)
     return times
-    
-if __name__ == "__main__":
-    parser = optparse.OptionParser(
-        usage="%prog [options]",
-        description="Test the performance of the Float benchmark")
-    util.add_standard_options_to(parser)
-    options, args = parser.parse_args()
 
-    util.run_benchmark(options, options.num_runs, main)
+"""
+Test the performance of the Float benchmark
+
+"%prog [options]"
+"""
+def boot(argv):
+    num_runs = 10
+    print main (num_runs)
+    return 0
+
+def target(driver,args):
+    return boot,None
