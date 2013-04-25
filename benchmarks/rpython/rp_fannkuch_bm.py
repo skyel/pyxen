@@ -8,19 +8,23 @@
 
 
 def fannkuch(n):
-    count = range(1, n+1)
+    count = []
     max_flips = 0
     m = n-1
     r = n
     check = 0
-    perm1 = range(n)
-    perm = range(n)
+    perm1 = []
+    perm = []
     perm1_ins = perm1.insert
     perm1_pop = perm1.pop
-
+    
+    for i in xrange(n):
+        count.insert(i,i+1)
+        perm1.insert(i,i)
+        perm.insert(i,i)
+    return 0
     while 1:
         if check < 30:
-            #print "".join(str(i+1) for i in perm1)
             check += 1
 
         while r != 1:
@@ -41,7 +45,7 @@ def fannkuch(n):
 
         while r != n:
             perm1_ins(r, perm1_pop(0))
-            count[r] -= 1
+            count[r] = count[r] - 1
             if count[r] > 0:
                 break
             r += 1
@@ -55,9 +59,10 @@ def main(n):
     for i in xrange(n):
         fannkuch(DEFAULT_ARG)
 
-def boot():
+def boot(arg):
 #	Here we should time the run times
     main(10)
+    return 0
 
 def target(driver,args):
     description="Test the performance of the Float benchmark"
