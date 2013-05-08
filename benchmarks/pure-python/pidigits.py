@@ -1,6 +1,6 @@
 import time
 
-PIDIGITS_LEN = 15000
+PIDIGITS_LEN = 1500
 
 def pidigits(length):
     i = k = ns = 0
