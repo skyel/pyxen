@@ -21,8 +21,10 @@ from pypy.module.thread import ll_thread
 def count(iterations=1000000):
     """Count down from a given starting point."""
     ll_thread.gc_thread_prepare()
-    while iterations > 0:
-        iterations -= 1
+    iterate = iterations
+    for _ in xrange(iterate):
+        iterations = iterations - 1
+    return time.time()
 
 
 def test_iterative_count(iterations, num_threads):
