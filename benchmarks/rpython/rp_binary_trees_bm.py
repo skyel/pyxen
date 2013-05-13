@@ -8,6 +8,7 @@
 # Ported to RPython by Razvan Ghitulete
 
 import sys
+import time
 
 """
 We use this class due to the fact that RPython
@@ -69,7 +70,7 @@ def get_argchunks(i, d, iterator, chunksize=5000):
     return chunk
 
 
-def main(n, min_depth=4):
+def binary_tree(n, min_depth=4):
 
     chunksize = 5000
     max_depth = max(min_depth + 2, n)
@@ -95,12 +96,12 @@ def main(n, min_depth=4):
     print 'long lived tree of depth %d\t check: %d' % (
           max_depth, check_tree(long_lived_tree))
 
-
-def boot(argv):
-	for i in xrange(20):
-		main(i);
-	return 0;
-
-def target(driver,args):
-    return boot,None
+def rp_binary_tree_main(n):
+    print "==Binary Trees Benchmark=="
+    for i in xrange(n):
+        t0 = time.time()
+        binary_tree(i)
+        t1 = time.time()
+        print str(i) + ": " + str(t1-t0)
+    return 0;
 

@@ -6,6 +6,7 @@
 # contributed by Sokolov Yura
 # modified by Tupteq
 
+import time
 
 def fannkuch(n):
     count = []
@@ -55,15 +56,12 @@ def fannkuch(n):
 DEFAULT_ARG = 9
 
 # The parameter n for main is used to specify the number of runs
-def main(n):
-    for i in xrange(n):
+def rp_fannkuch_main(n):
+    print "==Fannkuch Benchmark=="
+    iterations=int(n)
+    for i in xrange(iterations):
+        t0=time.time()
         fannkuch(DEFAULT_ARG)
-
-def boot(arg):
-#	Here we should time the run times
-    main(10)
+        t1=time.time()
+        print str(i) + ": " + str(t1-t0)
     return 0
-
-def target(driver,args):
-    description="Test the performance of the Float benchmark"
-    return boot,None

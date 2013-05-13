@@ -20,6 +20,7 @@ __contact__ = "collinwinter@google.com (Collin Winter)"
 import itertools
 import sys
 import math
+import time
 
 
 
@@ -116,26 +117,20 @@ def offset_momentum(ref, bodies=SYSTEM, px=0.0, py=0.0, pz=0.0):
 
 def test_nbody(iterations):
     # Warm-up runs.
+    print "==N-body simulation benchmark=="
+    offset_momentum(BODIES['sun'])  # Set up global state
     report_energy()
     advance(0.01, 20000)
     report_energy()
 
-    times = []
     for it in xrange(iterations):
+        t0 = time.time()
         print str(it) + ":"
         print report_energy()
         advance(0.01, 20000)
         print report_energy()
+        t1 = time.time()
+        print "Time: " + str(t1-t0)
 
 
-
-# Pass as argument the number of wanted iterations
-def main(argv):
-    offset_momentum(BODIES['sun'])  # Set up global state
-    test_nbody(int(argv[1]));
-    return 0
-
-
-def target(driver,args):
-    return main,None
 

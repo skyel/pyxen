@@ -178,11 +178,10 @@ def test_calls():
     t1 = time.time()
     return t1 - t0
 
-def main(argv):
-    increment = 0;
-    for i in xrange(10):
+# The number of iterations
+def rp_call_main(n):
+    print "==Mixed calls benchmark=="
+    iterations=int(n)
+    for i in xrange(iterations):
         print str(i) + ": " + str(test_calls())
     return 0
-
-def target(driver,args):
-    return main,None

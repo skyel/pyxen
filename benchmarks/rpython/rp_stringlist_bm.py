@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 
 
+import time
+
 class a(object):
   def main(self, table):
     tmp = ''
@@ -27,12 +29,18 @@ class a(object):
     return toRet
 
 # Pass as argument square root of the number of elements in the table
-def boot(argv):
-    count = int(argv[1])
+def rp_stringlist_boot(argv):
+    count = argv
     table = [range(count) for i in range(count)]
     a().main(table)
     return 0;
 
-def target(driver,args):
-    return boot,None
-
+def rp_stringlist_main(n):
+    print "==Stringlist benchmark=="
+    iterations=int(n)
+    for i in xrange(iterations):
+        t0 = time.time()
+        rp_stringlist_boot(2000)
+        t1 = time.time()
+        print str(i) + ": Time " + str(t1-t0)
+    return 0

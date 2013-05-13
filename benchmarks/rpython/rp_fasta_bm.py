@@ -72,7 +72,7 @@ def randomFasta(table, n):
 """
 
 
-def boot(argv):
+def fasta_boot(argv):
     n = 142
     for _ in xrange(int(argv[1])):
         print '>ONE Homo sapiens alu'
@@ -85,6 +85,13 @@ def boot(argv):
         randomFasta(homosapiens, n*5)
     return 0
 
-def target(driver,args):
-    return boot,None
+def rp_fasta_main(n)
+    print "==Fasta Benchmark=="
+    iterations=int(n)
+    for i in xrange(iterations):
+        t0 = time.time()
+        fasta_boot(20)
+        t1 = time.time()
+        print str(i) + ": " + str(t1-t0)
+    return 0
 

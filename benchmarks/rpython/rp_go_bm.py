@@ -444,24 +444,15 @@ def versus_cpu():
     board = Board()
     pos = computer_move(board)
 
-def main(n):
-    times = []
+# The go(game) benchmark
+#	argv[1] = number of runs
+def rp_go_main(n):
+    print "==Go simulation benchmark=="
     for i in range(5):
         versus_cpu() # warmup
     for i in range(n):
         t1 = time.time()
         versus_cpu()
         t2 = time.time()
-        times.append(t2 - t1)
-    return times
-
-# The go(game) benchmark
-#	argv[1] = number of runs
-def boot(argv):
-    num_runs = int(argv[1])
-    main(num_runs)
-    return 0;
-
-def target(driver,args):
-    return boot,None
-
+        print str(i) + ": " + str(t2 - t1)
+    return 0

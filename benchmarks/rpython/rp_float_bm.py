@@ -45,26 +45,18 @@ def benchmark(n):
 
 POINTS = 100000
 
-def main(arg):
+def rp_float_main(n):
     # XXX warmup
-    
-    times = []
-    for i in xrange(arg):
+    print "==Floating point benchmark=="
+    iterations=int(n)
+    for i in xrange(iterations):
         t0 = time.time()
         o = benchmark(POINTS)
         tk = time.time()
-        times.append(tk - t0)
-    return times
+        print str(i) + ": " + str(tk-t0)
+    return 0
 
 """
 Test the performance of the Float benchmark
-
 "%prog [options]"
 """
-def boot(argv):
-    num_runs = 10
-    print main (num_runs)
-    return 0
-
-def target(driver,args):
-    return boot,None

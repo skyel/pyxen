@@ -56,7 +56,7 @@ def test_threaded_count(iterations, num_threads):
 #   argv[2] = num_threads
 #   argv[3] = iterations
 
-def boot(argv):
+def rp_threading_boot(argv):
     if len(argv) != 4:
         print "incorrect number of arguments"
         return 1
@@ -72,6 +72,13 @@ def boot(argv):
 
     return 0;
 
-def target(driver,args):
-    return boot,None
-
+def rp_threading_main(n):
+    print "==Threading Benchmark=="
+    iterations=int(n)
+    argv = ["Ignore", "non_iterative", "100", "1"]
+    for i in xrange(iterations):
+        t0 = time.time()
+        rp_threading_main(argv)
+        t1 = time.time()
+        print str(i) + ": Time " + str(t1-t0)
+    return 0
