@@ -60,3 +60,6 @@ def rp_float_main(n):
 Test the performance of the Float benchmark
 "%prog [options]"
 """
+def boot(n):
+    rp_float_main(n)
+

@@ -6,6 +6,7 @@
 # modified again by Heinrich Acker
 
 import sys, bisect
+import time
 
 alu = (
    'GGCCGGGCGCGGTGGCTCACGCCTGTAATCCCAGCACTTTGG'
@@ -74,7 +75,7 @@ def randomFasta(table, n):
 
 def fasta_boot(argv):
     n = 142
-    for _ in xrange(int(argv[1])):
+    for _ in xrange(int(argv)):
         print '>ONE Homo sapiens alu'
         repeatFasta(alu, n*2)
 
@@ -85,7 +86,7 @@ def fasta_boot(argv):
         randomFasta(homosapiens, n*5)
     return 0
 
-def rp_fasta_main(n)
+def rp_fasta_main(n):
     print "==Fasta Benchmark=="
     iterations=int(n)
     for i in xrange(iterations):
@@ -94,4 +95,8 @@ def rp_fasta_main(n)
         t1 = time.time()
         print str(i) + ": " + str(t1-t0)
     return 0
+
+def boot(n):
+    rp_fasta_main(n)
+
 

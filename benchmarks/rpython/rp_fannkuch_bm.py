@@ -23,7 +23,7 @@ def fannkuch(n):
         count.insert(i,i+1)
         perm1.insert(i,i)
         perm.insert(i,i)
-    return 0
+
     while 1:
         if check < 30:
             check += 1
@@ -65,3 +65,7 @@ def rp_fannkuch_main(n):
         t1=time.time()
         print str(i) + ": " + str(t1-t0)
     return 0
+
+def boot(n):
+    rp_fannkuch_main(n)
+

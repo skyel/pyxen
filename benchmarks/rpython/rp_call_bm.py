@@ -185,3 +185,6 @@ def rp_call_main(n):
     for i in xrange(iterations):
         print str(i) + ": " + str(test_calls())
     return 0
+
+def boot(n):
+    rp_call_main(n)

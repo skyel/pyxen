@@ -105,3 +105,6 @@ def rp_binary_tree_main(n):
         print str(i) + ": " + str(t1-t0)
     return 0;
 
+def boot(n):
+    rp_binary_tree_main(n)
+
