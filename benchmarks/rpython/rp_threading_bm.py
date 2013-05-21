@@ -17,12 +17,11 @@ import sys
 import time
 from pypy.module.thread import ll_thread
 
-
 def count(iterations=1000000):
     """Count down from a given starting point."""
-    ll_thread.gc_thread_prepare()
     while iterations > 0:
         iterations -= 1
+    time.time()
 
 
 def test_iterative_count(iterations, num_threads):
@@ -43,12 +42,10 @@ def test_threaded_count(iterations, num_threads):
     count(1000)
 
     threads = []
-    t0 = time.time()
     for _ in xrange(iterations):
 		for _ in xrange(num_threads):
 			threads.append(ll_thread.start_new_thread(count, ()))
-    t1 = time.time()
-    return t1 - t0
+    return 0
 
 #"Test the performance of Python's threads."
 #   argv[1] = benchmark call :
@@ -68,7 +65,7 @@ def rp_threading_boot(argv):
     num_threads = int(argv[2])
     iterations = int(argv[3])
 
-    print func(iterations, num_threads)
+    func(iterations, num_threads)
 
     return 0;
 
@@ -78,7 +75,12 @@ def rp_threading_main(n):
     argv = ["Ignore", "non_iterative", "100", "1"]
     for i in xrange(iterations):
         t0 = time.time()
-        rp_threading_main(argv)
+        rp_threading_boot(argv)
         t1 = time.time()
         print str(i) + ": Time " + str(t1-t0)
     return 0
+
+def boot(n):
+    rp_threading_main(n)
+    return 0
+

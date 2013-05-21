@@ -40,7 +40,10 @@ def rp_stringlist_main(n):
     iterations=int(n)
     for i in xrange(iterations):
         t0 = time.time()
-        rp_stringlist_boot(2000)
+        rp_stringlist_boot(200)
         t1 = time.time()
         print str(i) + ": Time " + str(t1-t0)
     return 0
+
+def boot(n):
+    rp_stringlist_main(n)

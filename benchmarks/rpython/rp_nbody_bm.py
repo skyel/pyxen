@@ -125,12 +125,15 @@ def test_nbody(iterations):
 
     for it in xrange(iterations):
         t0 = time.time()
-        print str(it) + ":"
-        print report_energy()
         advance(0.01, 20000)
-        print report_energy()
+        advance(0.01, 20000)
+        advance(0.01, 20000)
+        advance(0.01, 20000)
+        advance(0.01, 20000)
+    	report_energy()
         t1 = time.time()
         print "Time: " + str(t1-t0)
 
-
+def boot(n):
+    test_nbody(n)
 

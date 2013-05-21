@@ -43,7 +43,7 @@ def benchmark(n):
         p.normalize()
     return maximize(points)
 
-POINTS = 100000
+POINTS = 10000000
 
 def rp_float_main(n):
     # XXX warmup

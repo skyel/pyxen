@@ -2,7 +2,7 @@ from pypy.rlib import rrandom
 import math
 import time
 
-SIZE = 9
+SIZE = 10
 GAMES = 200
 KOMI = 7.5
 EMPTY, WHITE, BLACK = 0, 1, 2
@@ -456,3 +456,6 @@ def rp_go_main(n):
         t2 = time.time()
         print str(i) + ": " + str(t2 - t1)
     return 0
+
+def boot(n):
+    rp_go_main(n)

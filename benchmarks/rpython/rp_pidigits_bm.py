@@ -7,7 +7,8 @@ def pidigits(length):
     to_ret = ""
     i = k = ns = 0
     k1 = 1
-    n,a,d,t,u = 1,0,1,0,0
+    a,d,t,u = 0,1,0,0
+    n = 1L
     while(True):
         k = k + 1
         t = n<<1
@@ -23,7 +24,7 @@ def pidigits(length):
             if d > u:
                 ns = ns*10 + t
                 i = i + 1
-                result.append(int(t))
+                result.append(t)
                 if i % 10 == 0:
                     ns = 0
                 if i >= length:
@@ -31,15 +32,14 @@ def pidigits(length):
                 a = a - d*t
                 a = a * 10
                 n = n * 10
-    return result
+    print result
 
 def main(n, digits):
     l = []
     for i in xrange(n):
         t0 = time.time()
-        print pidigits(digits)
-        l.append(time.time() - t0)
-    return l
+        pidigits(digits)
+        print str(i) + ": " + str((time.time() - t0))
 
 
 # Test the pidigit calculation performance 
@@ -47,10 +47,9 @@ def main(n, digits):
 def boot(argv):
     count = int(argv[1])
     digits = int(argv[2])
-    print main(count, digits)
+    main(count, digits)
     return 0;
 
 def target(driver,args):
     return boot,None
 
-main(10,15)

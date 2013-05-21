@@ -93,14 +93,12 @@ def binary_tree(n, min_depth=4):
                 cs += make_check(x)
         print '%d\t trees of depth %d\t check: %d' % (i * 2, d, cs)
 
-    print 'long lived tree of depth %d\t check: %d' % (
-          max_depth, check_tree(long_lived_tree))
 
 def rp_binary_tree_main(n):
     print "==Binary Trees Benchmark=="
     for i in xrange(n):
         t0 = time.time()
-        binary_tree(i)
+        binary_tree(12)
         t1 = time.time()
         print str(i) + ": " + str(t1-t0)
     return 0;

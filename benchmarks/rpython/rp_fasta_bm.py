@@ -5,9 +5,11 @@
 # modified by Ian Osgood
 # modified again by Heinrich Acker
 
-import sys, bisect
+from pypy.rlib import rrandom 
+import sys
 import time
 
+MAXINT = 0xffffffff
 alu = (
    'GGCCGGGCGCGGTGGCTCACGCCTGTAATCCCAGCACTTTGG'
    'GAGGCCGAGGCGGGCGGATCACCTGAGGTCAGGAGTTCGAGA'
@@ -25,16 +27,29 @@ homosapiens = [
     ('g', 0.1975473066391),
     ('t', 0.3015094502008),
 ]
+def bis(a, x, lo=0, hi=None):
 
+    if lo < 0:
+        raise ValueError('lo must be non-negative')
+    if hi is None:
+        hi = len(a)
+    while lo < hi:
+        mid = (lo+hi)//2
+        if x < a[mid]: hi = mid
+        else: lo = mid+1
+    return lo
 
-def genRandom(lim, ia = 3877, ic = 29573, im = 139968):
-    seed = 42
+def genRandom(lim, last, ia = 3877, ic = 29573, im = 139968):
+    if (last == 0):
+        seed = 42
+    else:
+        seed = last 
+	randy = rrandom.Random(0)
+	seed = randy.random() * MAXINT
     imf = float(im)
-    while 1:
-        seed = (seed * ia + ic) % im
-        yield lim * seed / imf
+    seed = (seed * ia + ic) % im
+    return lim * seed / imf
 
-Random = genRandom(1.)
 
 def makeCumulative(table):
     P = []
@@ -47,42 +62,43 @@ def makeCumulative(table):
     return (P, C)
 
 def repeatFasta(src, n):
+    res = ""
     width = 60
     r = len(src)
     s = src + src + src[:n % r]
     for j in xrange(n // width):
         i = j*width % r
-        print s[i:i+width]
+        res = res + str(s[i:i+width])
     if n % width:
         var = len(s) - (n % width)
         if var < 0:
             var = 0
-        print s[var:len(s)]
+        res = res + str(s[var:len(s)])
+    return res
 
 def randomFasta(table, n):
+    res = ""
+    var = 0
     width = 60
     r = xrange(width)
-    gR = Random.next
-    bb = bisect.bisect
+    bb = bis
+    gR = genRandom
     jn = ''.join
     probs, chars = makeCumulative(table)
-"""    for j in xrange(n // width):
-        print jn([chars[bb(probs, gR())] for i in r])
+    for j in xrange(n // width):
+        res = res + jn([chars[bb(probs, gR(1.0, var))] for i in r])
     if n % width:
-        print jn([chars[bb(probs, gR())] for i in xrange(n % width)])
-"""
+        res = res + jn([chars[bb(probs, gR(1.0, var))] for i in xrange(n % width)])
+    return res
 
 
 def fasta_boot(argv):
-    n = 142
+    n = 1337
     for _ in xrange(int(argv)):
-        print '>ONE Homo sapiens alu'
         repeatFasta(alu, n*2)
 
-        print '>TWO IUB ambiguity codes'
         randomFasta(iub, n*3)
 
-        print '>THREE Homo sapiens frequency'
         randomFasta(homosapiens, n*5)
     return 0
 
@@ -91,7 +107,7 @@ def rp_fasta_main(n):
     iterations=int(n)
     for i in xrange(iterations):
         t0 = time.time()
-        fasta_boot(20)
+        fasta_boot(1000)
         t1 = time.time()
         print str(i) + ": " + str(t1-t0)
     return 0
@@ -99,4 +115,4 @@ def rp_fasta_main(n):
 def boot(n):
     rp_fasta_main(n)
 
-
+boot(1)
